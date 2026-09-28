@@ -98,33 +98,11 @@ Quando uma loja está associada a mais de uma praça, é utilizado um **fator de
 
 O modelo dimensional desenvolvido possui a seguinte estrutura:
 
-![Modelo estrela](imagens/modelo_estrela.png)
+![Modelo estrela](imagens/dimensão.png)
 
 A tabela `fato_pedido` concentra os registros de pedidos e se relaciona com as dimensões utilizadas nas análises.
 
 A tabela `bridge_loja_praca` permite tratar os casos em que uma loja está relacionada a mais de uma praça, utilizando o `fator_rateio`.
-
----
-
-# 📂 Estrutura do projeto
-
-```text
-Pata-Amiga/
-│
-├── README.md
-│
-├── sql/
-│   ├── 01-staging.sql
-│   ├── 02-dimensoes.sql
-│   ├── 03-categoria-praca.sql
-│   ├── 04-fato.sql
-│   └── 05-negocio.sql
-│
-├── imagens/
-│   └── modelo_estrela.png
-│
-└── dados/
-```
 
 ---
 
@@ -320,41 +298,38 @@ O maior valor ocorre nas lojas pequenas, com **8,54 dias**, contribuindo para o 
 
 ---
 
-# 2. Qual categoria concentra o faturamento?
+## 2. Qual categoria concentra o faturamento?
 
 A categoria **Ração** concentra a maior parcela do faturamento da rede, representando **60,01%**, com faturamento de **R$ 1.076.202,55**. Em seguida aparece a categoria **Medicamento**, com 17,06%. Os resultados mostram uma concentração significativa do faturamento na categoria Ração.
 
 ---
 
-# 3. O desconto funciona da mesma forma em todos os canais?
+## 3. O desconto funciona da mesma forma em todos os canais?
 
 Foi analisado o ticket médio dos pedidos com e sem desconto em cada canal. Nos pedidos **sem desconto**, os tickets médios ficaram abaixo de R$ 200 na maioria dos canais. Os dados apresentam diferenças de ticket médio entre pedidos com e sem desconto e também entre os canais. Entre os pedidos com desconto, os tickets médios variam de **R$ 488,04 no App** a **R$ 514,33 no WhatsApp**, considerando os canais identificados. Essa análise demonstra diferenças observadas nos dados, mas não permite afirmar que o desconto seja a causa dessas diferenças. Também existem registros classificados como `Nao Informado`, o que limita uma comparação completa.
 
 ---
 
-# 4. Qual praça de atendimento concentra o maior faturamento?
+## 4. Qual praça de atendimento concentra o maior faturamento?
 
 Para essa análise foi utilizado o relacionamento entre loja e praça através da tabela `bridge_loja_praca`. O **Vale do Itajaí** apresenta o maior faturamento alocado, com aproximadamente **R$ 633.746,09**, distribuído em 1.485 pedidos.
 O cálculo considera o fator de rateio da relação entre lojas e praças, evitando que pedidos de uma loja associada a mais de uma praça sejam contabilizados integralmente em cada uma delas.
 
 ---
-
-## 7. P5 — Oportunidades para expansão
-
-### P5(a) — Onde existem indícios de oportunidade para expansão?
+## P5(a) — Onde existem indícios de oportunidade para expansão?
 
 Rio dos Cedros, Presidente Getúlio e Ibirama apresentam as maiores taxas de itens por mil habitantes.
 Esses resultados podem ser utilizados como indicadores para investigar possíveis oportunidades de expansão. Entretanto, o indicador isoladamente não é suficiente para definir a abertura de uma nova loja. Também seria necessário considerar fatores como concorrência, custos de operação, renda da população, valor de aluguel, logística, distância das lojas existentes e potencial de mercado.
 
 ---
 
-### P5(b) — Como o faturamento se distribui por faixa de franquia?
+## P5(b) — Como o faturamento se distribui por faixa de franquia?
 
 A faixa **Ouro** apresenta o maior faturamento observado, com **R$ 1.011.264,38**, seguida pelas faixas Diamante, com R$ 382.209,74, e Prata, com R$ 314.812,03. Essa análise utiliza a classificação de franquia presente no cadastro atual das lojas. Como não existe histórico das alterações dessa classificação, não é possível afirmar que a faixa atual era a mesma no momento de cada pedido.
 
 ---
 
-### P5(c) — Quais informações ficaram de fora das análises?
+## P5(c) — Quais informações ficaram de fora das análises?
 
  Dos **4.044 pedidos analisados**, 3 não possuem loja identificada, 1.953 não possuem entrega concluída, 257 não possuem quantidade de itens informada e 121 não possuem valor líquido. Essas ausências limitam principalmente as análises relacionadas ao tempo de entrega, quantidade de itens e faturamento.
 
@@ -392,7 +367,7 @@ Quantidade total de pedidos:
 
 ---
 
-# 🛠️ Tecnologias utilizadas
+# Tecnologias utilizadas
 
 - **MySQL 8.0**
 - SQL
@@ -405,18 +380,15 @@ Quantidade total de pedidos:
 
 # Como executar o projeto
 
-## 1. Criar o banco de dados
-
-## 2. Executar os scripts
+## 1. Executar os scripts
 
 Os arquivos devem ser executados na seguinte ordem:
 
 ```text
 01-staging.sql
 02-dimensoes.sql
-03-categoria-praca.sql
-04-fato.sql
-05-negocio.sql
+03-fato.sql
+04-negocio.sql
 ```
 
 A ordem deve ser respeitada devido às dependências entre as tabelas.
