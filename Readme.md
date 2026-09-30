@@ -139,7 +139,6 @@ Criação e tratamento das estruturas relacionadas às categorias e praças:
 - `dim_praca`
 - `bridge_loja_praca`
 
-
 ### 04 — Fato
 
 Criação e carga da tabela:
@@ -423,4 +422,4 @@ O modelo também preserva as limitações existentes nos dados, evitando transfo
 
 **Aluna:** Jessica Finardi dos Santos  
 **Curso:** Análise de Dados com Python Turma V2  
-**Projeto:** Data Warehouse — Pata Amiga
+**Projeto:** Mini Projeto Avaliativo módulo 2 — Pata Amiga
