@@ -98,7 +98,7 @@ Quando uma loja está associada a mais de uma praça, é utilizado um **fator de
 
 O modelo dimensional desenvolvido possui a seguinte estrutura:
 
-![Modelo estrela](image/dimensão.png)
+![Modelo estrela](image/dimensao.png)
 
 A tabela `fato_pedido` concentra os registros de pedidos e se relaciona com as dimensões utilizadas nas análises.
 
