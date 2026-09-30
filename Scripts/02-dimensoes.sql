@@ -3,7 +3,7 @@ USE dw_pata_amiga;
 
 DROP TABLE IF EXISTS dim_tempo;
 CREATE TABLE dim_tempo (
-    sk_tempo      INT PRIMARY KEY,   -- AAAAMMDD: a propria data em numero
+    sk_tempo      INT PRIMARY KEY,   
     data          DATE,
     ano           INT,
     mes           INT,
@@ -342,10 +342,7 @@ CREATE TABLE dim_praca (
 -- -------------------------------------------------------------------------------------
 --  BRIDGE_LOJA_PRACA    grao: UMA LOJA x UMA PRACA
 -- -------------------------------------------------------------------------------------
---  A tabela PONTE. Uma loja entrega em mais de uma praca, e uma FK so comporta
---  um valor - entao a ligacao N:N vive aqui, com o fator de rateio dentro.
---
---  ATENCAO: a ponte e ligada pelo COD DA LOJA, e nao pela sk_loja.
+
 DROP TABLE IF EXISTS bridge_loja_praca;
 CREATE TABLE bridge_loja_praca (
     cod_loja      VARCHAR(10),
@@ -360,29 +357,16 @@ CREATE TABLE bridge_loja_praca (
 DROP TABLE IF EXISTS fato_pedido;
 CREATE TABLE fato_pedido (
     sk_pedido        INT AUTO_INCREMENT PRIMARY KEY,
-    numero_pedido    VARCHAR(20),   -- codigo do pedido, sem atributos
-
-    -- as duas FKs de tempo: dois papeis da MESMA dim_tempo
+    numero_pedido    VARCHAR(20),   
     sk_tempo_pedido  INT NOT NULL,
-    sk_tempo_entrega INT NOT NULL,  -- vale -1 se a entrega ainda nao aconteceu
-
-    -- as demais FKs. Nenhuma pode ser nula: quando falta, vale -1
+    sk_tempo_entrega INT NOT NULL,  
     sk_loja          INT NOT NULL,
     sk_categoria     INT NOT NULL,
-
-    -- atributos que ficam na fato
-    -- desconto e canal sao dois dominios de poucos valores. Como nada esta
-    -- pendurado neles, ficam aqui na fato, padronizados uma vez no arquivo 04.
-    houve_desconto   VARCHAR(15),   -- Sim / Nao / Nao Informado
-    canal_pedido     VARCHAR(20),   -- App / Site / Loja Fisica / Telefone / WhatsApp
-    dt_pedido        DATETIME,   -- data e hora do pedido
-
-    -- metricas ADITIVAS
+    houve_desconto   VARCHAR(15),   
+    canal_pedido     VARCHAR(20),   
+    dt_pedido        DATETIME,  
     qt_itens         INT,
     vl_liquido       DECIMAL(15,2),
-
-    -- os lags do processo, em dias. Calculados UMA vez, aqui na carga.
-    -- Etapa nao cumprida grava NULL, nunca 0.
     dias_integracao_separacao INT,
     dias_separacao_nota       INT,
     dias_nota_despacho        INT,
@@ -445,7 +429,6 @@ select * from stg_loja_praca
 --  A TABELA PONTE
 -- -------------------------------------------------------------------------------------
 
--- Carga da ponte N:N vinculando o código da loja à chave substituta da praça (sk_praca)
 INSERT INTO bridge_loja_praca (cod_loja, sk_praca, fator_publico)
 SELECT 
     lp.codloja,

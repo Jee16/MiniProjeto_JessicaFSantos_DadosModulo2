@@ -94,11 +94,11 @@ Quando uma loja está associada a mais de uma praça, é utilizado um **fator de
 
 ---
 
-# ⭐ Modelo estrela
+# Modelo estrela
 
 O modelo dimensional desenvolvido possui a seguinte estrutura:
 
-![Modelo estrela](imagens/dimensão.png)
+![Modelo estrela](image/dimensão.png)
 
 A tabela `fato_pedido` concentra os registros de pedidos e se relaciona com as dimensões utilizadas nas análises.
 
@@ -106,7 +106,7 @@ A tabela `bridge_loja_praca` permite tratar os casos em que uma loja está relac
 
 ---
 
-# 🗄️ Scripts SQL
+# Scripts SQL
 
 Os scripts devem ser executados na seguinte ordem:
 
